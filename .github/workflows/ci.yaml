@@ -1,0 +1,25 @@
+
+# workflow name
+name: Java CI
+
+# when to run the workflow
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# jobs to run
+jobs:
+  build:
+    name: Build with Maven
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 # checkout the code
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3 # set up the JDK
+        with:
+          java-version: '17' # the JDK version
+          distribution: 'temurin' # the JDK distribution
+          cache: maven
+      - run: mvn -B package --file pom.xml # build the project
